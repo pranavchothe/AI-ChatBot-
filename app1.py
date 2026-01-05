@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from google import genai
+import google.generativeai as genai
 
 load_dotenv()
 
@@ -20,4 +20,5 @@ if st.button("Send"):
         st.write(response.text)
     else:
         st.warning("Please type a question")
+
 
