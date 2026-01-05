@@ -1,25 +1,22 @@
 import streamlit as st
-import os
-from dotenv import load_dotenv
 import google.generativeai as genai
 
-# Load .env for local development
-load_dotenv()
+st.set_page_config(page_title="Gemini Chatbot", layout="centered")
 
-# Get API key safely
-api_key = os.getenv("GOOGLE_API_KEY")
+st.title("🤖 Simple Gemini Chatbot")
+
+# Get API key from Streamlit Secrets
+api_key = st.secrets.get("GOOGLE_API_KEY")
 
 if not api_key:
-    st.error("❌ GOOGLE_API_KEY not found. Add it to .env or Streamlit Secrets.")
+    st.error("❌ GOOGLE_API_KEY not found in Streamlit Secrets")
     st.stop()
 
 # Configure Gemini
 genai.configure(api_key=api_key)
 
-# Use a valid model
+# Valid model
 model = genai.GenerativeModel("models/gemini-1.5-flash")
-
-st.title("🤖 Simple Gemini Chatbot")
 
 user_input = st.text_input("Ask me anything:")
 
