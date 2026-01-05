@@ -4,9 +4,11 @@ import google.generativeai as genai
 
 st.title("🤖 Simple Gemini Chatbot")
 
+# Configure API key
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+# Use a stable model
+model = genai.GenerativeModel("gemini-1.0-pro")
 
 user_input = st.text_input("Ask me anything:")
 
