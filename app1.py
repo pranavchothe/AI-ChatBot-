@@ -1,5 +1,4 @@
 import streamlit as st
-from dotenv import load_dotenv
 import os
 from google import genai
 
@@ -21,3 +20,4 @@ if st.button("Send"):
         st.write(response.text)
     else:
         st.warning("Please type a question")
+
