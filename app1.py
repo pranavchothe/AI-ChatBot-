@@ -1,29 +1,29 @@
 import streamlit as st
-import google.generativeai as genai
+from dotenv import load_dotenv
+import os
+from groq import Groq
 
-st.set_page_config(page_title="Gemini Chatbot", layout="centered")
+# Load environment variables
+load_dotenv()
 
-st.title("🤖 Simple Gemini Chatbot")
+# Create Groq client
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-# Get API key from Streamlit Secrets
-api_key = st.secrets.get("GOOGLE_API_KEY")
-
-if not api_key:
-    st.error("❌ GOOGLE_API_KEY not found in Streamlit Secrets")
-    st.stop()
-
-# Configure Gemini
-genai.configure(api_key=api_key)
-
-# Valid model
-model = genai.GenerativeModel("models/gemini-1.5-flash")
+st.title("🤖 Simple Groq Chatbot")
 
 user_input = st.text_input("Ask me anything:")
 
 if st.button("Send"):
-    if user_input.strip():
-        response = model.generate_content(user_input)
-        st.write("**Gemini Reply:**")
-        st.write(response.text)
+    if user_input:
+        # Send request to Groq
+        response = client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[
+                {"role": "user", "content": user_input}
+            ]
+        )
+
+        st.write("**Groq Reply:**")
+        st.write(response.choices[0].message.content)
     else:
         st.warning("Please type a question")
