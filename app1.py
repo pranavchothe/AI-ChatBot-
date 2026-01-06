@@ -29,3 +29,7 @@ if st.button("Send"):
             st.write(response.choices[0].message.content)
 
         except Exception as e:
+            st.error("❌ Groq API Error")
+            st.exception(e)
+    else:
+        st.warning("⚠️ Please type a question.")
