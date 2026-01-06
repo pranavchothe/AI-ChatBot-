@@ -12,17 +12,17 @@ st.title("🤖 Simple Groq Chatbot")
 # Input box
 user_input = st.text_input("Ask me anything:")
 
-# Button click
 if st.button("Send"):
     if user_input.strip():
         try:
             response = client.chat.completions.create(
-                model="llama3-70b-8192",  # Use "llama3-8b-8192" for faster responses
+                model="llama-3.1-8b-instant",   # ✅ Supported Groq model
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": user_input}
                 ],
-                temperature=0.7
+                temperature=0.7,
+                max_tokens=512
             )
 
             st.markdown("### 💬 Groq Reply:")
